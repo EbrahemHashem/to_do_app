@@ -12,10 +12,10 @@ class ToDoCubit extends Cubit<ToDoState> {
 
     try {
       var toDoBox = Hive.box<ToDoModel>(kToDoBox);
-      emit(ToDoSuccessState());
       await toDoBox.add(toDo);
+      emit(ToDoSuccessState());
     } catch (e) {
-      ToDoFailureState(e.toString());
+      emit(ToDoFailureState(e.toString()));
     }
   }
 }

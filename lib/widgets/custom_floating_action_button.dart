@@ -19,10 +19,11 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
       showDialog(
         context: context,
         builder: (context) {
-          return BlocConsumer<ToDoCubit, ToDoState>(
+          return BlocListener<ToDoCubit, ToDoState>(
             listener: (context, state) {
               // success state
               if (state is ToDoSuccessState) {
+                debugPrint('succcesss');
                 Navigator.of(context).pop();
               }
               // failure state
@@ -30,9 +31,7 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
                 debugPrint('failed ${state.errMessage}');
               }
             },
-            builder: (context, state) {
-              return const CustomDialog();
-            },
+            child: const CustomDialog(),
           );
         },
       );

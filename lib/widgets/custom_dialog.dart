@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/cubits/to_do_cubit/to_do_cubit.dart';
+import 'package:to_do_app/models/to_do_model.dart';
 import 'package:to_do_app/widgets/custom_button.dart';
 
 class CustomDialog extends StatefulWidget {
@@ -14,6 +17,7 @@ class _CustomDialogState extends State<CustomDialog> {
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title;
+
   void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,13 @@ class _CustomDialogState extends State<CustomDialog> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
+                        var toDo = ToDoModel(
+                          title: title!,
+                          id: DateTime.now().toString(),
+                          isDone: true,
+                        );
+                        // provider
+                        BlocProvider.of<ToDoCubit>(context).addToDo(toDo);
                       } else {
                         autovalidateMode = AutovalidateMode.always;
                         setState(() {});

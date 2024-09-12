@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/cubits/display_to_do_cubit/display_to_do_stats_cubit.dart';
+import 'package:to_do_app/cubits/to_do_cubit/to_do_cubit.dart';
 import 'package:to_do_app/models/to_do_model.dart';
 import 'package:to_do_app/pages/home_page.dart';
 
 void main() async {
   // hive
   await Hive.initFlutter();
-  await Hive.openBox(kToDoBox);
   Hive.registerAdapter(ToDoModelAdapter());
-
+  await Hive.openBox<ToDoModel>(kToDoBox);
   runApp(const ToDoApp());
 }
 
@@ -18,19 +20,29 @@ class ToDoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue[300],
-          elevation: 0,
-          centerTitle: true,
-          title: const Text(
-            "Todo App",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ToDoCubit(),
         ),
-        body: const HomePage(),
+        BlocProvider(
+          create: (context) => DisplayToDoStatsCubit(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.blue[300],
+            elevation: 0,
+            centerTitle: true,
+            title: const Text(
+              "Todo App",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          body: const HomePage(),
+        ),
       ),
     );
   }
