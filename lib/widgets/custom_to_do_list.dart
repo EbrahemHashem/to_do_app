@@ -24,10 +24,17 @@ class CustomToDoList extends StatelessWidget {
           color: Colors.yellow,
         ),
         child: Row(children: [
-          Checkbox(value: value, onChanged: onChanged),
+          Checkbox(
+            value: value,
+            onChanged: onChanged,
+            activeColor: Colors.black87,
+          ),
           Text(
             name,
-            style: const TextStyle(fontSize: 18),
+            style: TextStyle(
+              fontSize: 18,
+              decoration: value ? TextDecoration.lineThrough : TextDecoration.none,
+            ),
           ),
         ]),
       ),

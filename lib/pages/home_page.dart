@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/widgets/custom_floating_action_button.dart';
 import 'package:to_do_app/widgets/custom_to_do_list.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[200],
+      floatingActionButton: const CustomFloatingActionButton(),
       body: ListView.builder(
         itemCount: 2,
         itemBuilder: (BuildContext context, int index) {

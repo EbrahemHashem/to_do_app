@@ -3,5 +3,9 @@ class ToDoModel {
   final bool value;
   void Function(bool?) onChanged;
 
-  ToDoModel({required this.title, required this.value, required this.onChanged});
+  ToDoModel({
+    required this.title,
+    required this.value,
+    required this.onChanged,
+  });
 }
