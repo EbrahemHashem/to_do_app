@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/to_do_model.dart';
 import 'package:to_do_app/pages/home_page.dart';
 
 void main() async {
+  // hive
   await Hive.initFlutter();
-  await Hive.openBox('to_do_box');
+  await Hive.openBox(kToDoBox);
+  Hive.registerAdapter(ToDoModelAdapter());
+
   runApp(const ToDoApp());
 }
 

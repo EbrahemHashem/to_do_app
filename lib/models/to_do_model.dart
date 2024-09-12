@@ -4,15 +4,15 @@ part 'to_do_model.g.dart';
 @HiveType(typeId: 0)
 class ToDoModel extends HiveObject {
   @HiveField(0)
-  final String title;
+  String id;
   @HiveField(1)
-  final bool value;
+  String title;
   @HiveField(2)
-  void Function(bool?) onChanged;
+  bool isDone;
 
   ToDoModel({
     required this.title,
-    required this.value,
-    required this.onChanged,
+    required this.id,
+    required this.isDone,
   });
 }

@@ -17,9 +17,9 @@ class ToDoModelAdapter extends TypeAdapter<ToDoModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ToDoModel(
-      title: fields[0] as String,
-      value: fields[1] as bool,
-      onChanged: fields[2] as void Function(bool),
+      title: fields[1] as String,
+      id: fields[0] as String,
+      isDone: fields[2] as bool,
     );
   }
 
@@ -28,16 +28,20 @@ class ToDoModelAdapter extends TypeAdapter<ToDoModel> {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.title)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.value)
+      ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.onChanged);
+      ..write(obj.isDone);
   }
 
   @override
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is ToDoModelAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ToDoModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

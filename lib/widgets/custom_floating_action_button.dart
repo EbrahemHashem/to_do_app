@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/cubits/to_do_cubit/to_do_cubit.dart';
+import 'package:to_do_app/cubits/to_do_cubit/to_do_state.dart';
 import 'package:to_do_app/widgets/custom_dialog.dart';
 
 class CustomFloatingActionButton extends StatefulWidget {
@@ -16,7 +19,21 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
       showDialog(
         context: context,
         builder: (context) {
-          return const CustomDialog();
+          return BlocConsumer<ToDoCubit, ToDoState>(
+            listener: (context, state) {
+              // success state
+              if (state is ToDoSuccessState) {
+                Navigator.of(context).pop();
+              }
+              // failure state
+              if (state is ToDoFailureState) {
+                debugPrint('failed ${state.errMessage}');
+              }
+            },
+            builder: (context, state) {
+              return const CustomDialog();
+            },
+          );
         },
       );
     }
