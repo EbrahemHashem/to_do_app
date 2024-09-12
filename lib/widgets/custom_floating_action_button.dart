@@ -11,18 +11,12 @@ class CustomFloatingActionButton extends StatefulWidget {
 class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton> {
   @override
   Widget build(BuildContext context) {
-    // save new task
-    void saveNewTask() {}
-
     //
     void createNewTask() {
       showDialog(
         context: context,
         builder: (context) {
-          return CustomDialog(
-            onSave: saveNewTask,
-            onCancel: () => Navigator.of(context).pop(),
-          );
+          return const CustomDialog();
         },
       );
     }
