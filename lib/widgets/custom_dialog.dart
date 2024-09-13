@@ -61,7 +61,6 @@ class _CustomDialogState extends State<CustomDialog> {
                         var toDo = ToDoModel(
                           title: title!,
                           id: DateTime.now().toString(),
-                          isDone: true,
                         );
                         // provider
                         BlocProvider.of<ToDoCubit>(context).addToDo(toDo);

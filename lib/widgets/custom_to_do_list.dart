@@ -1,18 +1,17 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:to_do_app/models/to_do_model.dart';
 
-class CustomToDoList extends StatelessWidget {
-  CustomToDoList({
-    super.key,
-    required this.name,
-    required this.value,
-    required this.onChanged,
-  });
-  final String name;
-  final bool value;
-  void Function(bool?)? onChanged;
+class CustomToDoList extends StatefulWidget {
+  const CustomToDoList({super.key, required this.toDoModel});
+  final ToDoModel toDoModel;
 
+  @override
+  State<CustomToDoList> createState() => _CustomToDoListState();
+}
+
+class _CustomToDoListState extends State<CustomToDoList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,16 +23,21 @@ class CustomToDoList extends StatelessWidget {
           color: Colors.yellow,
         ),
         child: Row(children: [
+          // check box
           Checkbox(
-            value: value,
-            onChanged: onChanged,
+            value: widget.toDoModel.isDone,
             activeColor: Colors.black87,
+            onChanged: (bool? value) {
+              widget.toDoModel.isDone = value!;
+              setState(() {});
+            },
           ),
+          // title
           Text(
-            name,
+            widget.toDoModel.title,
             style: TextStyle(
               fontSize: 18,
-              decoration: value ? TextDecoration.lineThrough : TextDecoration.none,
+              decoration: widget.toDoModel.isDone ? TextDecoration.lineThrough : TextDecoration.none,
             ),
           ),
         ]),

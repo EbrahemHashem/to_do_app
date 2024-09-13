@@ -13,6 +13,6 @@ class ToDoModel extends HiveObject {
   ToDoModel({
     required this.title,
     required this.id,
-    required this.isDone,
+    this.isDone = false,
   });
 }

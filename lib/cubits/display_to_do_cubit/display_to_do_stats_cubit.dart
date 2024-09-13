@@ -7,14 +7,10 @@ part 'display_to_do_stats_state.dart';
 
 class DisplayToDoStatsCubit extends Cubit<DisplayToDoStatsState> {
   DisplayToDoStatsCubit() : super(DisplayToDoStatsInitial());
+  List<ToDoModel>? todos;
 
-  fetchAlltodo() async {
-    try {
-      var toDoBox = Hive.box<ToDoModel>(kToDoBox);
-
-      emit(DisplayToDoStatsSuccess(toDoBox.values.toList()));
-    } catch (e) {
-      emit(DisplayToDoStatsFailure(e.toString()));
-    }
+  fetchAlltodo() {
+    var toDoBox = Hive.box<ToDoModel>(kToDoBox);
+    todos = toDoBox.values.toList();
   }
 }
