@@ -12,5 +12,6 @@ class DisplayToDoStatsCubit extends Cubit<DisplayToDoStatsState> {
   fetchAlltodo() {
     var toDoBox = Hive.box<ToDoModel>(kToDoBox);
     todos = toDoBox.values.toList();
+    emit(DisplayToDoStatssuccess());
   }
 }

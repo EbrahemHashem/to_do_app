@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:to_do_app/cubits/display_to_do_cubit/display_to_do_stats_cubit.dart';
 import 'package:to_do_app/models/to_do_model.dart';
 
 class CustomToDoList extends StatefulWidget {
@@ -29,6 +31,7 @@ class _CustomToDoListState extends State<CustomToDoList> {
             borderRadius: BorderRadius.circular(12),
             onPressed: (context) {
               widget.toDoModel.delete();
+              BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
             },
             icon: Icons.delete,
           )

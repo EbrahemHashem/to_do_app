@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/cubits/display_to_do_cubit/display_to_do_stats_cubit.dart';
 import 'package:to_do_app/cubits/to_do_cubit/to_do_cubit.dart';
 import 'package:to_do_app/cubits/to_do_cubit/to_do_state.dart';
 import 'package:to_do_app/widgets/custom_dialog.dart';
@@ -23,7 +24,7 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
             listener: (context, state) {
               // success state
               if (state is ToDoSuccessState) {
-                debugPrint('succcesss');
+                BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
                 Navigator.of(context).pop();
               }
               // failure state
