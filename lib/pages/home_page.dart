@@ -26,7 +26,8 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         List<ToDoModel> todos = BlocProvider.of<DisplayToDoStatsCubit>(context).todos ?? [];
         return Scaffold(
-          backgroundColor: Colors.blue[200],
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          backgroundColor: const Color(0xff663ebc),
           floatingActionButton: const CustomFloatingActionButton(),
           body: ListView.builder(
             itemCount: todos.length,

@@ -33,8 +33,7 @@ class ToDoApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.blue[300],
-            elevation: 0,
+            backgroundColor: const Color.fromRGBO(32, 21, 95, .8),
             centerTitle: true,
             title: const Text(
               "Todo App",

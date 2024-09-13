@@ -27,10 +27,10 @@ class _CustomToDoListState extends State<CustomToDoList> {
         dismissible: DismissiblePane(onDismissed: () {
           deleteSound();
         }),
-        motion: const ScrollMotion(),
+        motion: const BehindMotion(),
         children: [
           SlidableAction(
-            backgroundColor: Colors.red,
+            backgroundColor: const Color.fromARGB(255, 244, 73, 54),
             borderRadius: BorderRadius.circular(12),
             // delete
             onPressed: (context) {
@@ -54,6 +54,7 @@ class _CustomToDoListState extends State<CustomToDoList> {
             child: Row(children: [
               // check box
               Checkbox(
+                checkColor: Colors.red,
                 value: widget.toDoModel.isDone,
                 activeColor: Colors.black87,
                 onChanged: (bool? value) {
