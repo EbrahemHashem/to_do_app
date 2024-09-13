@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:to_do_app/cubits/display_to_do_cubit/display_to_do_stats_cubit.dart';
 import 'package:to_do_app/models/to_do_model.dart';
+import 'package:to_do_app/widgets/custom_audioplayer.dart';
 
 class CustomToDoList extends StatefulWidget {
   const CustomToDoList({super.key, required this.toDoModel});
@@ -23,15 +24,19 @@ class _CustomToDoListState extends State<CustomToDoList> {
       key: const ValueKey(ToDoModel),
       closeOnScroll: true,
       endActionPane: ActionPane(
-        dismissible: DismissiblePane(onDismissed: () {}),
+        dismissible: DismissiblePane(onDismissed: () {
+          deleteSound();
+        }),
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
             backgroundColor: Colors.red,
             borderRadius: BorderRadius.circular(12),
+            // delete
             onPressed: (context) {
               widget.toDoModel.delete();
               BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
+              deleteSound();
             },
             icon: Icons.delete,
           )

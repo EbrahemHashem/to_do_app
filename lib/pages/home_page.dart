@@ -26,16 +26,17 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         List<ToDoModel> todos = BlocProvider.of<DisplayToDoStatsCubit>(context).todos ?? [];
         return Scaffold(
-            backgroundColor: Colors.blue[200],
-            floatingActionButton: const CustomFloatingActionButton(),
-            body: ListView.builder(
-              itemCount: todos.length,
-              itemBuilder: (context, index) {
-                return CustomToDoList(
-                  toDoModel: todos[index],
-                );
-              },
-            ));
+          backgroundColor: Colors.blue[200],
+          floatingActionButton: const CustomFloatingActionButton(),
+          body: ListView.builder(
+            itemCount: todos.length,
+            itemBuilder: (context, index) {
+              return CustomToDoList(
+                toDoModel: todos[index],
+              );
+            },
+          ),
+        );
       },
     );
   }
