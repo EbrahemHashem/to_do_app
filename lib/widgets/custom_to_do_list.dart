@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -19,63 +18,65 @@ class CustomToDoList extends StatefulWidget {
 class _CustomToDoListState extends State<CustomToDoList> {
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      // slidable
+    return Padding(
+      padding: const EdgeInsets.all(18),
+      child: Slidable(
+        // slidable
 
-      key: const ValueKey(ToDoModel),
-      closeOnScroll: true,
-      endActionPane: ActionPane(
-        dismissible: DismissiblePane(onDismissed: () {
-          widget.toDoModel.delete();
-          BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
-          deleteSound();
-        }),
-        motion: const BehindMotion(),
-        children: [
-          SlidableAction(
-            backgroundColor: const Color.fromARGB(255, 244, 73, 54),
-            borderRadius: BorderRadius.circular(12),
-            // delete
-            onPressed: (context) {
-              widget.toDoModel.delete();
-              BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
-              deleteSound();
-            },
-            icon: Icons.delete,
-          )
-        ],
-      ),
-      // end slidable
-      child: Padding(
-          padding: const EdgeInsets.all(18),
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
+        key: const ValueKey(ToDoModel),
+        closeOnScroll: true,
+        endActionPane: ActionPane(
+          dismissible: DismissiblePane(onDismissed: () {
+            widget.toDoModel.delete();
+            deleteSound();
+            BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
+          }),
+          motion: const BehindMotion(),
+          children: [
+            SlidableAction(
+              backgroundColor: const Color.fromARGB(255, 244, 73, 54),
               borderRadius: BorderRadius.circular(12),
-              color: Colors.yellow,
+              icon: Icons.delete,
+              autoClose: true,
+              // delete
+              onPressed: (context) {
+                widget.toDoModel.delete();
+                deleteSound();
+                BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
+              },
+            )
+          ],
+        ),
+        // end slidable
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.yellow,
+          ),
+          child: Row(children: [
+            // check box
+            Checkbox(
+              checkColor: Colors.red,
+              value: widget.toDoModel.isDone,
+              activeColor: Colors.black87,
+              onChanged: (bool? value) {
+                widget.toDoModel.isDone = value!;
+                widget.toDoModel.save();
+                BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
+              },
             ),
-            child: Row(children: [
-              // check box
-              Checkbox(
-                checkColor: Colors.red,
-                value: widget.toDoModel.isDone,
-                activeColor: Colors.black87,
-                onChanged: (bool? value) {
-                  widget.toDoModel.isDone = value!;
-                  widget.toDoModel.save();
-                  BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
-                },
+            // title
+            Text(
+              widget.toDoModel.title,
+              style: TextStyle(
+                fontSize: 18,
+                decoration: widget.toDoModel.isDone ? TextDecoration.lineThrough : TextDecoration.none,
               ),
-              // title
-              Text(
-                widget.toDoModel.title,
-                style: TextStyle(
-                  fontSize: 18,
-                  decoration: widget.toDoModel.isDone ? TextDecoration.lineThrough : TextDecoration.none,
-                ),
-              ),
-            ]),
-          )),
+            ),
+          ]),
+        ),
+      ),
     );
   }
 }
