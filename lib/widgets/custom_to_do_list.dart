@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -61,7 +62,8 @@ class _CustomToDoListState extends State<CustomToDoList> {
                 activeColor: Colors.black87,
                 onChanged: (bool? value) {
                   widget.toDoModel.isDone = value!;
-                  setState(() {});
+                  widget.toDoModel.save();
+                  BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
                 },
               ),
               // title
