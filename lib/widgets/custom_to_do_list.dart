@@ -25,6 +25,8 @@ class _CustomToDoListState extends State<CustomToDoList> {
       closeOnScroll: true,
       endActionPane: ActionPane(
         dismissible: DismissiblePane(onDismissed: () {
+          widget.toDoModel.delete();
+          BlocProvider.of<DisplayToDoStatsCubit>(context).fetchAlltodo();
           deleteSound();
         }),
         motion: const BehindMotion(),
